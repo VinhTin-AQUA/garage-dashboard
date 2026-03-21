@@ -1,0 +1,37 @@
+/* Background */
+.login-bg {
+    background: linear-gradient(
+        to bottom right,
+        var(--background),
+        var(--bg-gradient-mid),
+        var(--background)
+    );
+}
+
+/* Card */
+.login-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--card-border);
+}
+
+/* Title */
+.login-title {
+    color: var(--brightWhite);
+}
+
+/* Subtitle */
+.login-subtitle {
+    color: var(--brightBlack);
+}
+
+/* Button */
+.login-btn {
+    background-color: var(--blue);
+    color: var(--cursorAccent);
+    transition: all 0.2s ease;
+}
+
+.login-btn:hover {
+    background-color: var(--brightBlue);
+}

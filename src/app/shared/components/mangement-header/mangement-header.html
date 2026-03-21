@@ -1,0 +1,48 @@
+<header
+    class="flex items-center justify-between px-4 py-2 border-b theme-bg theme-text theme-border"
+>
+    <!-- LEFT -->
+    <div class="flex items-center gap-3">
+        <span class="font-semibold text-lg"></span>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="flex items-center gap-4 relative">
+        <!-- Toggle Theme -->
+        <app-button
+            (click)="toggleTheme()"
+            status="primary"
+            class="p-2 rounded theme-hover transition"
+        >
+            <!-- Dark -->
+            @if (themeService.getTheme() === 'dark') {
+                <app-icons class="w-5 h-5" iconName="dark"></app-icons>
+            }
+
+            <!-- Light -->
+            @if (themeService.getTheme() === 'light') {
+                <app-icons class="w-5 h-5" iconName="light"></app-icons>
+            }
+        </app-button>
+
+        <!-- Avatar -->
+        <div class="relative">
+            <img
+                src="https://i.pravatar.cc/40"
+                class="w-8 h-8 rounded-full cursor-pointer border theme-border"
+                (click)="toggleMenu()"
+            />
+
+            <!-- Dropdown -->
+            @if (openMenu) {
+                <div class="absolute right-0 mt-2 w-40 rounded shadow-lg z-50 theme-surface">
+                    <button class="block w-full text-left px-4 py-2 theme-hover">Profile</button>
+                    <button class="block w-full text-left px-4 py-2 theme-hover">Settings</button>
+                    <button class="block w-full text-left px-4 py-2 theme-hover text-danger">
+                        Logout
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</header>

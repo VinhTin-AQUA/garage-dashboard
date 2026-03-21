@@ -1,0 +1,33 @@
+/* Base */
+.theme-bg {
+    background: var(--background);
+}
+
+.theme-text {
+    color: var(--foreground);
+}
+
+.theme-border {
+    border-color: var(--brightBlack);
+}
+
+/* Hover */
+.theme-hover:hover {
+    background: var(--brightBlack);
+}
+
+/* Dropdown */
+.theme-surface {
+    background: var(--background);
+    color: var(--foreground);
+    border: 1px solid var(--brightBlack);
+}
+
+/* Optional semantic colors */
+.text-primary {
+    color: var(--blue);
+}
+
+.text-danger {
+    color: var(--red);
+}
