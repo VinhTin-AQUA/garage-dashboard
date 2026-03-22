@@ -20,7 +20,9 @@
             ></app-checkbox>
         </div>
 
-        <app-date label="Expiration" [formField]="addKeyDataForm.expiration"></app-date>
+        @if (!addKeyData().neverExpires) {
+            <app-date label="Expiration" [(ngModel)]="expiration"></app-date>
+        }
 
         <div class="modal-actions">
             <app-button (click)="close()"> Cancel </app-button>

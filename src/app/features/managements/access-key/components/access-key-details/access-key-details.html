@@ -3,27 +3,53 @@
         <h2 class="modal-title">Details</h2>
 
         <app-text-input
-            [value]="addKeyData().name"
-            placeholder="Name"
+            [value]="keyDetails().accessKeyId"
+            placeholder="Id"
+            label="AccessKey Id"
+            [disabled]="true"
+        ></app-text-input>
+
+        <app-text-input
+            [value]="keyDetails().secretAccessKey"
+            placeholder="SecretAccessKey"
+            label="SecretAccessKey"
+            [disabled]="true"
+        ></app-text-input>
+
+        <app-text-input
+            [value]="keyDetails().created"
+            placeholder="Created"
+            label="Created"
+            [disabled]="true"
+        ></app-text-input>
+
+        <app-text-input
+            [value]="keyDetails().name"
+            placeholder="name"
             label="Name"
             [disabled]="true"
         ></app-text-input>
 
         <div class="flex gap-2 mb-3">
             <app-checkbox
-                [checked]="addKeyData().allow.createBucket"
+                [checked]="keyDetails().permissions.createBucket"
                 label="Allow Create Bucket"
                 [disabled]="true"
             ></app-checkbox>
 
             <app-checkbox
-                [checked]="addKeyData().neverExpires"
+                [checked]="keyDetails().expired"
                 label="Never Expires"
                 [disabled]="true"
             ></app-checkbox>
         </div>
 
-        <app-date label="Expiration" [value]="addKeyData().expiration" [disabled]="true"></app-date>
+        <app-text-input
+            [value]="keyDetails().expiration ?? 'null'"
+            placeholder="Expiration"
+            label="Expiration"
+            [disabled]="true"
+        ></app-text-input>
 
         <div class="modal-actions">
             <app-button (click)="close()"> Cancel </app-button>

@@ -15,7 +15,7 @@ export const routes: Routes = [
     },
     {
         path: '',
-        redirectTo: RouteConstants.Login.path,
+        redirectTo: ManagementRouteConstants.Managements.path,
         pathMatch: 'full',
     },
 ];

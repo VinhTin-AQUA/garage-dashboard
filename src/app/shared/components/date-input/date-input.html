@@ -10,12 +10,12 @@
 
             (focus)="onFocus($event)"
             (blur)="onBlur()"
-            type="date"
+            type="datetime"
         />
     } @else {
         <input
             id="ok"
-            type="date"
+            type="datetime"
             class="input"
             [value]="value"
             (input)="onInputChange($event)"

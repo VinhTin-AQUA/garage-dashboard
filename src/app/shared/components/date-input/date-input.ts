@@ -18,7 +18,7 @@ import { OptionModel } from '../../../core/models/option.model';
 })
 export class DateInput implements ControlValueAccessor {
     // ====== Inputs ======
-    @Input() formField?: FieldTree<string | null>;
+    @Input() formField?: FieldTree<string>;
     @Input() label = '';
     @Input() value: any = '';
     @Input() placeholder = '';

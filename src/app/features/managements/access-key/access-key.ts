@@ -1,45 +1,48 @@
 import { Component, signal } from '@angular/core';
-import { form, FormField, required } from '@angular/forms/signals';
-import { TextInput } from '../../../shared/components/text-input/text-input';
-import { DateInput } from '../../../shared/components/date-input/date-input';
-import { Checkbox } from '../../../shared/components/checkbox/checkbox';
 import { Button } from '../../../shared/components/button/button';
 import { CreateAccessKey } from './components/create-access-key/create-access-key';
 import { AccessKeyModel } from './models/access-key.model';
-import { AccessKeyDetails } from "./components/access-key-details/access-key-details";
-import { QuestionCancelDialog } from "../../../shared/components/question-cancel-dialog/question-cancel-dialog";
+import { AccessKeyDetails } from './components/access-key-details/access-key-details';
+import { QuestionCancelDialog } from '../../../shared/components/question-cancel-dialog/question-cancel-dialog';
+import { AccessKeyService } from '../../../core/services/access-key.service';
 
 @Component({
     selector: 'app-access-key',
-    imports: [FormField, TextInput, DateInput, Checkbox, Button, CreateAccessKey, AccessKeyDetails, QuestionCancelDialog],
+    imports: [Button, CreateAccessKey, AccessKeyDetails, QuestionCancelDialog],
     templateUrl: './access-key.html',
     styleUrl: './access-key.css',
 })
 export class AccessKey {
-    keys = signal<AccessKeyModel[]>([
-        {
-            id: 'GK0bc9780d11d1c96cfe80b324',
-            name: 'Unnamed key',
-            created: '2026-03-21T16:33:35.926Z',
-            expiration: null,
-            expired: false,
-        },
-        {
-            id: 'GK0bc9780d11d1c96cfe80b324',
-            name: 'Unnamed key',
-            created: '2026-03-21T16:33:35.926Z',
-            expiration: null,
-            expired: false,
-        },
-    ]);
+    keys = signal<AccessKeyModel[]>([]);
 
     showCreate = signal<boolean>(false);
     deleteId: string | null = null;
     detailsId: string | null = null;
 
+    constructor(private accessKeyService: AccessKeyService) {}
+
+    ngOnInit() {
+        this.loadKeys();
+    }
+
+    private loadKeys() {
+        this.accessKeyService.listKeys().subscribe({
+            next: (res) => {
+                this.keys.set(res);
+            },
+            error: (err) => {
+                console.log(err);
+            },
+        });
+    }
+
     // create
     openCreateModal(value: boolean) {
         this.showCreate.set(value);
+
+        if (!value) {
+            this.loadKeys();
+        }
     }
 
     // details
@@ -53,7 +56,14 @@ export class AccessKey {
     }
 
     delete() {
-        console.log('Delete ID:', this.deleteId);
+        if (this.deleteId) {
+            this.accessKeyService.deleteKey(this.deleteId).subscribe({
+                next: (res) => {
+                    this.loadKeys();
+                },
+                error: (err) => {},
+            });
+        }
         this.deleteId = null;
     }
 }

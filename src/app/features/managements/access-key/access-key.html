@@ -13,7 +13,9 @@
                 <div class="list-item">
                     <div class="item-info">
                         <p class="item-name">{{ item.name }}</p>
-                        <p class="item-id">{{ item.id }}</p>
+                        <p class="item-id">Id: {{ item.id }}</p>
+                        <p class="item-id">Expiration: {{ item.expiration ?? 'NULL' }}</p>
+                        <p class="item-id">Expired: {{ item.expired }}</p>
                     </div>
 
                     <div class="actions">
