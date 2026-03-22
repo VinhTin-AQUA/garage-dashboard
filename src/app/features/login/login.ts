@@ -1,7 +1,9 @@
 import { Component, signal } from '@angular/core';
 import { form, required } from '@angular/forms/signals';
-import { Button } from "../../shared/components/button/button";
+import { Button } from '../../shared/components/button/button';
 import { TextInput } from '../../shared/components/text-input/text-input';
+import { Router } from '@angular/router';
+import { ManagementRouteConstants } from '../../core/constants/route.constants';
 
 @Component({
     selector: 'app-login',
@@ -10,20 +12,19 @@ import { TextInput } from '../../shared/components/text-input/text-input';
     styleUrl: './login.css',
 })
 export class Login {
-    loginData = signal<{ userName: string; password: string }>({
-        userName: '',
-        password: '',
+    loginData = signal<{ adminToken: string }>({
+        adminToken: '',
     });
 
     loginForm = form(this.loginData, (op) => {
-        required(op.userName);
-        required(op.password);
+        required(op.adminToken);
     });
 
-    constructor() {}
+    constructor(private router: Router) {}
 
-    signIn() {
-        
+    genTokenAdmin() {}
+
+    goToManager() {
+        this.router.navigateByUrl(ManagementRouteConstants.Managements.path);
     }
 }
-

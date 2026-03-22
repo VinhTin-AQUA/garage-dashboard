@@ -4,25 +4,35 @@
 
         <p class="text-center mb-8 login-subtitle">Log in to the S3 storage system</p>
 
-        <form class="space-y-5">
-            <app-text-input label="Email" [formField]="loginForm.userName" placeholder="User Name">
-            </app-text-input>
-
+        <div class="space-y-5">
             <app-text-input
-                label="Password"
-                [formField]="loginForm.password"
-                placeholder="Password"
+                label="Admin token"
+                [formField]="loginForm.adminToken"
+                placeholder="Admin token"
             >
             </app-text-input>
 
-            <app-button
-                class="w-full login-btn"
-                icon="trash"
-                status="primary"
-                (buttonClick)="signIn()"
-            >
-                Login
-            </app-button>
-        </form>
+            
+
+            <div class="flex gap-2">
+                <app-button
+                    class="w-full rounded-xl login-btn"
+                    icon="trash"
+                    status="primary"
+                    (click)="genTokenAdmin()"
+                >
+                    Gen Admin Token
+                </app-button>
+
+                <app-button
+                    class="w-full rounded-xl login-btn"
+                    icon="trash"
+                    status="success"
+                    (click)="goToManager()"
+                >
+                    Go to Manager
+                </app-button>
+            </div>
+        </div>
     </div>
 </div>

@@ -1,0 +1,32 @@
+<div class="modal-overlay">
+    <div class="modal">
+        <h2 class="modal-title">Details</h2>
+
+        <app-text-input
+            [value]="addKeyData().name"
+            placeholder="Name"
+            label="Name"
+            [disabled]="true"
+        ></app-text-input>
+
+        <div class="flex gap-2 mb-3">
+            <app-checkbox
+                [checked]="addKeyData().allow.createBucket"
+                label="Allow Create Bucket"
+                [disabled]="true"
+            ></app-checkbox>
+
+            <app-checkbox
+                [checked]="addKeyData().neverExpires"
+                label="Never Expires"
+                [disabled]="true"
+            ></app-checkbox>
+        </div>
+
+        <app-date label="Expiration" [value]="addKeyData().expiration" [disabled]="true"></app-date>
+
+        <div class="modal-actions">
+            <app-button (click)="close()"> Cancel </app-button>
+        </div>
+    </div>
+</div>

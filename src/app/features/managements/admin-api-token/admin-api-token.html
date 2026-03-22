@@ -1,1 +1,71 @@
-<p>admin-api-token works!</p>
+<div class="page">
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="title">Access Keys</h1>
+
+            <app-button (click)="openCreateModal(true)" status="primary"> + Create New </app-button>
+        </div>
+
+        <!-- List -->
+        <div class="card">
+            @for (item of keys(); track $index) {
+                <div class="list-item">
+                    <div class="item-info">
+                        <p class="item-name">{{ item.name }}</p>
+
+                        <p class="item-id">ID: {{ item.id || 'N/A' }}</p>
+
+                        <p class="item-id">Created: {{ item.created || 'N/A' }}</p>
+
+                        <p class="item-id">Expiration: {{ item.expiration || 'N/A' }}</p>
+
+                        <p class="item-id">Scope: {{ item.scope.join(', ') }}</p>
+
+                        <p class="item-id">
+                            Status:
+                            <span [class]="item.expired ? 'text-red-500' : 'text-green-500'">
+                                {{ item.expired ? 'Expired' : 'Active' }}
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="actions">
+                        @if (item.created) {
+                            <app-button (click)="showViewDetail(item)" status="warning">
+                                Detail
+                            </app-button>
+                            <app-button (click)="confirmDelete(item)" status="danger">
+                                Delete
+                            </app-button>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- CREATE MODAL -->
+    @if (showCreate()) {
+        <app-create-admin-api-token
+            (closeModal)="openCreateModal($event)"
+        ></app-create-admin-api-token>
+    }
+
+    @if (detailsId) {
+        <app-admin-api-token-details
+            [id]="detailsId"
+            (closeModal)="showViewDetail()"
+        ></app-admin-api-token-details>
+    }
+
+    @if (deleteId) {
+        <app-question-cancel-dialog
+            (close)="confirmDelete()"
+            (confirm)="delete()"
+            [isSuccess]="false"
+            [message]="'delete'"
+            [title]="'delete'"
+        ></app-question-cancel-dialog>
+    }
+</div>

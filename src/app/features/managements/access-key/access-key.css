@@ -1,0 +1,66 @@
+/* Layout */
+.page {
+    color: var(--foreground);
+}
+
+.container {
+    margin: 0 auto;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--foreground);
+}
+
+/* Card */
+.card {
+    background: var(--background);
+    /* padding: 16px; */
+}
+
+/* List item */
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 8px;
+    border-bottom: 1px solid var(--selectionInactiveBackground);
+    transition: all 0.2s ease;
+    border: 1px solid var(--brightBlack);
+    border-radius: 16px;
+    margin-bottom: 10px;
+}
+
+.list-item:last-child {
+    /* border-bottom: none; */
+}
+
+.list-item:hover {
+    background: var(--selectionBackground);
+}
+
+/* Info */
+.item-name {
+    font-weight: 600;
+    color: var(--foreground);
+}
+
+.item-id {
+    font-size: 13px;
+    color: var(--brightBlack);
+}
+
+/* Actions */
+.actions {
+    display: flex;
+    gap: 8px;
+}

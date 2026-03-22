@@ -1,0 +1,30 @@
+<div class="modal-overlay">
+    <div class="modal">
+        <h2 class="modal-title">Create Key</h2>
+
+        <app-text-input
+            [formField]="addKeyDataForm.name"
+            placeholder="Name"
+            label="Name"
+        ></app-text-input>
+
+        <div class="flex gap-2 mb-3">
+            <app-checkbox
+                [formField]="addKeyDataForm.allow.createBucket"
+                label="Allow Create Bucket"
+            ></app-checkbox>
+
+            <app-checkbox
+                [formField]="addKeyDataForm.neverExpires"
+                label="Never Expires"
+            ></app-checkbox>
+        </div>
+
+        <app-date label="Expiration" [formField]="addKeyDataForm.expiration"></app-date>
+
+        <div class="modal-actions">
+            <app-button (click)="close()"> Cancel </app-button>
+            <app-button (click)="create()">Create</app-button>
+        </div>
+    </div>
+</div>

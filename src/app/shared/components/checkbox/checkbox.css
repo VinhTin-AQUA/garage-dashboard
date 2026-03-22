@@ -1,0 +1,117 @@
+@layer components {
+    .checkbox {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        user-select: none;
+        font-size: 14px;
+        color: var(--foreground);
+    }
+
+    .checkbox-label {
+        line-height: 1;
+    }
+
+    .checkbox input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .checkbox-box {
+        width: 18px;
+        height: 18px;
+        border-radius: 6px;
+        border: 1.5px solid var(--brightBlack);
+        background: var(--background);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+    }
+
+    /* SVG icon */
+    .checkbox-icon {
+        width: 14px;
+        height: 14px;
+        stroke: white; /* giữ contrast */
+        transform: scale(0);
+        transition: transform 0.15s ease;
+    }
+
+    /* Hover */
+    .checkbox:hover .checkbox-box {
+        border-color: var(--blue);
+    }
+
+    /* Checked */
+    .checkbox input:checked + .checkbox-box {
+        background: var(--blue);
+        border-color: var(--blue);
+    }
+
+    .checkbox input:checked + .checkbox-box .checkbox-icon {
+        transform: scale(1);
+    }
+
+    .checkbox input:checked + .checkbox-box::after {
+        transform: scale(1);
+    }
+
+    .checkbox input:checked + .checkbox-box .checkbox-icon {
+        transform: scale(1);
+        transition: transform 0.15s ease;
+    }
+    .checkbox input:checked + .checkbox-box {
+        transform: scale(1.05);
+    }
+
+    /* Focus */
+    .checkbox input:focus-visible + .checkbox-box {
+        box-shadow: 0 0 0 3px var(--selectionBackground);
+    }
+
+    /* Disabled */
+    .checkbox input:disabled + .checkbox-box {
+        background: var(--selectionInactiveBackground);
+        border-color: var(--brightBlack);
+        cursor: not-allowed;
+    }
+
+    .checkbox input:disabled ~ .checkbox-label {
+        color: var(--white);
+        cursor: not-allowed;
+    }
+
+    /* ===== Variants ===== */
+
+    .checkbox-success input:checked + .checkbox-box {
+        background: var(--green);
+        border-color: var(--green);
+    }
+
+    .checkbox-success input:focus-visible + .checkbox-box {
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 30%, transparent);
+    }
+
+    .checkbox-error input:checked + .checkbox-box {
+        background: var(--red);
+        border-color: var(--red);
+    }
+
+    .checkbox-error input:focus-visible + .checkbox-box {
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--red) 30%, transparent);
+    }
+
+    .checkbox-warning input:checked + .checkbox-box {
+        background: var(--yellow);
+        border-color: var(--yellow);
+    }
+
+    .checkbox-warning input:focus-visible + .checkbox-box {
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--yellow) 30%, transparent);
+    }
+}

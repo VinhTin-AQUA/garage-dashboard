@@ -1,1 +1,53 @@
-<p>access-key works!</p>
+<div class="page">
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="title">Access Keys</h1>
+
+            <app-button (click)="openCreateModal(true)" status="primary"> + Create New </app-button>
+        </div>
+
+        <!-- List -->
+        <div class="card">
+            @for (item of keys(); track $index) {
+                <div class="list-item">
+                    <div class="item-info">
+                        <p class="item-name">{{ item.name }}</p>
+                        <p class="item-id">{{ item.id }}</p>
+                    </div>
+
+                    <div class="actions">
+                        <app-button (click)="showViewDetail(item)" status="warning">
+                            Detail
+                        </app-button>
+                        <app-button (click)="confirmDelete(item)" status="danger">
+                            Delete
+                        </app-button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- CREATE MODAL -->
+    @if (showCreate()) {
+        <app-create-access-key (closeModal)="openCreateModal($event)"></app-create-access-key>
+    }
+
+    @if (detailsId) {
+        <app-access-key-details
+            [id]="detailsId"
+            (closeModal)="showViewDetail()"
+        ></app-access-key-details>
+    }
+
+    @if (deleteId) {
+        <app-question-cancel-dialog
+            (close)="confirmDelete()"
+            (confirm)="delete()"
+            [isSuccess]="false"
+            [message]="'delete'"
+            [title]="'delete'"
+        ></app-question-cancel-dialog>
+    }
+</div>

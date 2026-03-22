@@ -1,0 +1,45 @@
+<div class="input-group">
+    <label class="input-label"> {{ label }} </label>
+
+    @if (formField) {
+        <input
+            id="ok"
+            class="input"
+            (input)="onInputChange($event)"
+            [formField]="formField"
+
+            (focus)="onFocus($event)"
+            (blur)="onBlur()"
+            type="date"
+        />
+    } @else {
+        <input
+            id="ok"
+            type="date"
+            class="input"
+            [value]="value"
+            (input)="onInputChange($event)"
+            (blur)="onBlur()"
+            [disabled]="disabled"
+            [readonly]="readonly"
+            (focus)="onFocus($event)"
+        />
+    }
+
+    <!-- Errors -->
+    @if (formField && formField()!.touched() && formField()!.invalid()) {
+        <div class="text-(--color-error)">
+            @for (error of formField()!.errors(); track error) {
+                <p>{{ error.message }}</p>
+            }
+        </div>
+    }
+    
+</div>
+
+<!-- <datalist id="browsers">
+    <option value="Chrome"></option>
+    <option value="Firefox"></option>
+    <option value="Edge"></option>
+    <option value="Safari"></option>
+</datalist> -->
