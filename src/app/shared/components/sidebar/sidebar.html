@@ -40,10 +40,13 @@
         <nav class="flex flex-col gap-2">
             @for (item of menuItems; track $index) {
                 <a
-                    [routerLink]="item.url"
+                    [routerLink]="item.active ? item.url : null"
                     routerLinkActive="menu-active"
                     [routerLinkActiveOptions]="{ exact: true }"
+                    (click)="!item.active && $event.preventDefault()"
                     class="menu-item flex items-center gap-3 w-full p-2 rounded-lg transition-colors"
+                    [class.opacity-50]="!item.active"
+                    [class.pointer-events-none]="!item.active"
                 >
                     <app-icons [iconName]="item.icon" class="size-6 shrink-0"></app-icons>
 

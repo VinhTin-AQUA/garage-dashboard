@@ -1,1 +1,87 @@
-<p>cluster works!</p>
+<div class="dashboard p-6 min-h-screen">
+    <h1 class="text-2xl font-bold mb-6">Cluster Dashboard</h1>
+
+    <!-- CARDS -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <div class="card">
+            <div class="card-title">Status</div>
+            <div
+                class="card-value"
+                [ngClass]="health.status === 'healthy' ? 'status-healthy' : 'status-error'"
+            >
+                {{ health.status }}
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Nodes</div>
+            <div class="card-value">{{ health.connectedNodes }}/{{ health.knownNodes }}</div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Storage Nodes</div>
+            <div class="card-value">{{ health.storageNodesUp }}/{{ health.storageNodes }}</div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Partitions OK</div>
+            <div class="card-value">{{ health.partitionsAllOk }}/{{ health.partitions }}</div>
+        </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="card mb-6">
+        <div class="section-title">Nodes</div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Hostname</th>
+                    <th>IP</th>
+                    <th>Zone</th>
+                    <th>Status</th>
+                    <th>Data</th>
+                    <th>Metadata</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @for (node of layout.nodes; track $index) {
+                    <tr>
+                        <td class="font-medium">{{ node.hostname }}</td>
+                        <td>{{ node.addr }}</td>
+                        <td>{{ node.role.zone }}</td>
+
+                        <td>
+                            <span class="badge" [ngClass]="node.isUp ? 'badge-up' : 'badge-down'">
+                                {{ node.isUp ? 'UP' : 'DOWN' }}
+                            </span>
+                        </td>
+
+                        <td>
+                            {{ formatBytes(node.dataPartition.available) }}
+                            /
+                            {{ formatBytes(node.dataPartition.total) }}
+                        </td>
+
+                        <td>
+                            {{ formatBytes(node.metadataPartition.available) }}
+                            /
+                            {{ formatBytes(node.metadataPartition.total) }}
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- TERMINAL -->
+    <div class="card">
+        <div class="section-title">Storage Details</div>
+
+        <pre class="terminal"
+            >{{ storageText.freeform }}
+    </pre
+        >
+    </div>
+</div>

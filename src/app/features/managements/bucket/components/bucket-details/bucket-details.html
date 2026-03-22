@@ -1,0 +1,65 @@
+<div class="modal-overlay">
+    <div class="modal">
+        <h2 class="modal-title">Details</h2>
+
+        <!-- Bucket ID -->
+        <app-text-input
+            [value]="bucketData().id"
+            placeholder="Bucket ID"
+            label="Bucket ID"
+            [disabled]="true"
+        ></app-text-input>
+
+        <!-- Created -->
+        <app-date
+            label="Created"
+            [value]="bucketData().created"
+            [disabled]="true"
+        ></app-date>
+
+        <!-- Website access -->
+        <div class="flex gap-2 mb-3">
+            <app-checkbox
+                [checked]="bucketData().websiteAccess"
+                label="Website Access"
+                [disabled]="true"
+            ></app-checkbox>
+
+            <app-checkbox
+                [checked]="bucketData().globalAliases.length > 0"
+                label="Has Aliases"
+                [disabled]="true"
+            ></app-checkbox>
+        </div>
+
+        <!-- Objects / Size -->
+        <app-text-input
+            [value]="bucketData().objects"
+            label="Objects"
+            [disabled]="true"
+        ></app-text-input>
+
+        <app-text-input
+            [value]="bucketData().bytes"
+            label="Bytes"
+            [disabled]="true"
+        ></app-text-input>
+
+        <!-- Quotas -->
+        <app-text-input
+            [value]="bucketData().quotas.maxSize"
+            label="Max Size"
+            [disabled]="true"
+        ></app-text-input>
+
+        <app-text-input
+            [value]="bucketData().quotas.maxObjects"
+            label="Max Objects"
+            [disabled]="true"
+        ></app-text-input>
+
+        <div class="modal-actions">
+            <app-button (click)="close()"> Cancel </app-button>
+        </div>
+    </div>
+</div>

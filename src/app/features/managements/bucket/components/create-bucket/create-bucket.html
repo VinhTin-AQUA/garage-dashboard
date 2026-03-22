@@ -1,0 +1,17 @@
+<div class="modal-overlay">
+    <div class="modal">
+        <h2 class="modal-title">Create Key</h2>
+
+        <app-text-input
+            [formField]="addKeyDataForm.globalAlias"
+            placeholder="Name"
+            label="Name"
+        ></app-text-input>
+
+
+        <div class="modal-actions">
+            <app-button (click)="close()"> Cancel </app-button>
+            <app-button (click)="create()">Create</app-button>
+        </div>
+    </div>
+</div>
