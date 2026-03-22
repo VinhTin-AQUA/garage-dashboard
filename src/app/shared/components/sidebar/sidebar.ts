@@ -30,7 +30,7 @@ export class Sidebar {
             name: ManagementRouteConstants.AdminApiToken.name,
             icon: 'lock',
             url: `/${ManagementRouteConstants.Managements.path}/${ManagementRouteConstants.AdminApiToken.path}`,
-            active: true,
+            active: false,
         },
         {
             name: ManagementRouteConstants.Block.name,
@@ -66,7 +66,7 @@ export class Sidebar {
             name: ManagementRouteConstants.Node.name,
             icon: 'node',
             url: `/${ManagementRouteConstants.Managements.path}/${ManagementRouteConstants.Node.path}`,
-            active: false,
+            active: true,
         },
         {
             name: ManagementRouteConstants.Permission.name,

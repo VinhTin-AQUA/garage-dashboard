@@ -1,9 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { BucketModel } from './models/buckket.model';
 import { Button } from '../../../shared/components/button/button';
-import { CreateBucket } from "./components/create-bucket/create-bucket";
-import { BucketDetails } from "./components/bucket-details/bucket-details";
-import { QuestionCancelDialog } from "../../../shared/components/question-cancel-dialog/question-cancel-dialog";
+import { CreateBucket } from './components/create-bucket/create-bucket';
+import { BucketDetails } from './components/bucket-details/bucket-details';
+import { QuestionCancelDialog } from '../../../shared/components/question-cancel-dialog/question-cancel-dialog';
+import { BucketService } from '../../../core/services/bucket.service';
 
 @Component({
     selector: 'app-bucket',
@@ -12,18 +13,28 @@ import { QuestionCancelDialog } from "../../../shared/components/question-cancel
     styleUrl: './bucket.css',
 })
 export class Bucket {
-    keys = signal<BucketModel[]>([
-        {
-            id: '14c9a4c1e9db10e72b5e8c4fc871def3f1595a264a6e1d6b06e16d871a308bd6',
-            created: '2026-03-22T04:36:16.192Z',
-            globalAliases: ['images'],
-            localAliases: [],
-        },
-    ]);
+    buckets = signal<BucketModel[]>([]);
 
     showCreate = signal<boolean>(false);
     deleteId: string | null = null;
     detailsId: string | null = null;
+
+    constructor(private bucketService: BucketService) {}
+
+    ngOnInit() {
+        this.loadBuckets();
+    }
+
+    private loadBuckets() {
+        this.bucketService.listBuckets().subscribe({
+            next: (res) => {
+                this.buckets.set(res);
+            },
+            error: (err) => {
+                console.log(err);
+            },
+        });
+    }
 
     // create
     openCreateModal(value: boolean) {

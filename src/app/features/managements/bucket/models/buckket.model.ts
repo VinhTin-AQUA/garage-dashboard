@@ -12,11 +12,11 @@ export interface Quotas {
 
 export interface BucketDetailsModel {
     id: string;
-    created: string; // hoặc Date nếu cần
+    created: string; 
     globalAliases: string[];
     websiteAccess: boolean;
-    websiteConfig: any | null; // có thể refine nếu biết cấu trúc
-    keys: any[]; // đổi sang type cụ thể nếu có schema
+    websiteConfig: any | null;
+    keys: any[]; 
     objects: number;
     bytes: number;
     unfinishedUploads: number;
@@ -24,4 +24,9 @@ export interface BucketDetailsModel {
     unfinishedMultipartUploadParts: number;
     unfinishedMultipartUploadBytes: number;
     quotas: Quotas;
+}
+
+export interface CreateBucketBody {
+  globalAlias: string;
+  localAlias: string | null; 
 }
