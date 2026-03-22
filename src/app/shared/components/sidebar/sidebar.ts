@@ -78,7 +78,7 @@ export class Sidebar {
             name: ManagementRouteConstants.SpecialEndpoints.name,
             icon: 'plug',
             url: `/${ManagementRouteConstants.Managements.path}/${ManagementRouteConstants.SpecialEndpoints.path}`,
-            active: true,
+            active: false,
         },
         {
             name: ManagementRouteConstants.Worker.name,
