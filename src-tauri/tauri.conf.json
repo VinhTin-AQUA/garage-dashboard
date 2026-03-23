@@ -2,7 +2,7 @@
     "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
     "productName": "garage-dashboard",
     "version": "0.1.0",
-    "identifier": "com.garagedashboard.dev",
+    "identifier": "com.newtun.garagedashboard",
     "build": {
         "frontendDist": "../dist/garage-dashboard/browser",
         "devUrl": "http://localhost:4200",
