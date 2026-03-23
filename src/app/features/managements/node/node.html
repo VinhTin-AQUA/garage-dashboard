@@ -1,1 +1,51 @@
-<p>node works!</p>
+<div class="p-6 min-h-screen app-bg">
+    <div class="max-w-5xl mx-auto space-y-6">
+        <!-- Node Info -->
+        <div class="card">
+            <h2 class="text-xl font-semibold mb-4 title-blue">Node Information</h2>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <p class="label">Node ID</p>
+                    <p class="font-mono break-all">{{ nodeInfo().nodeId }}</p>
+                </div>
+
+                <div>
+                    <p class="label">Garage Version</p>
+                    <p>{{ nodeInfo().garageVersion }}</p>
+                </div>
+
+                <div>
+                    <p class="label">Rust Version</p>
+                    <p>{{ nodeInfo().rustVersion }}</p>
+                </div>
+
+                <div>
+                    <p class="label">Database Engine</p>
+                    <p>{{ nodeInfo().dbEngine }}</p>
+                </div>
+            </div>
+
+            <!-- Features -->
+            <div class="mt-4">
+                <p class="label mb-2">Garage Features</p>
+                <div class="flex flex-wrap gap-2">
+                    @for (feature of nodeInfo().garageFeatures; track $index) {
+                        <span class="badge">
+                            {{ feature }}
+                        </span>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Node Statistics -->
+        <div class="card">
+            <h2 class="text-xl font-semibold mb-4 title-green">Node Statistics</h2>
+
+            <div class="stats-box">
+                {{ nodeStatistics().freeform }}
+            </div>
+        </div>
+    </div>
+</div>

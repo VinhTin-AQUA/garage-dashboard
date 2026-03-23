@@ -7,25 +7,25 @@
             <div class="card-title">Status</div>
             <div
                 class="card-value"
-                [ngClass]="health.status === 'healthy' ? 'status-healthy' : 'status-error'"
+                [ngClass]="health().status === 'healthy' ? 'status-healthy' : 'status-error'"
             >
-                {{ health.status }}
+                {{ health().status }}
             </div>
         </div>
 
         <div class="card">
             <div class="card-title">Nodes</div>
-            <div class="card-value">{{ health.connectedNodes }}/{{ health.knownNodes }}</div>
+            <div class="card-value">{{ health().connectedNodes }}/{{ health().knownNodes }}</div>
         </div>
 
         <div class="card">
             <div class="card-title">Storage Nodes</div>
-            <div class="card-value">{{ health.storageNodesUp }}/{{ health.storageNodes }}</div>
+            <div class="card-value">{{ health().storageNodesUp }}/{{ health().storageNodes }}</div>
         </div>
 
         <div class="card">
             <div class="card-title">Partitions OK</div>
-            <div class="card-value">{{ health.partitionsAllOk }}/{{ health.partitions }}</div>
+            <div class="card-value">{{ health().partitionsAllOk }}/{{ health().partitions }}</div>
         </div>
     </div>
 
@@ -46,7 +46,7 @@
             </thead>
 
             <tbody>
-                @for (node of layout.nodes; track $index) {
+                @for (node of clusterStatus().nodes; track $index) {
                     <tr>
                         <td class="font-medium">{{ node.hostname }}</td>
                         <td>{{ node.addr }}</td>
@@ -80,7 +80,7 @@
         <div class="section-title">Storage Details</div>
 
         <pre class="terminal"
-            >{{ storageText.freeform }}
+            >{{ clusterStatistics().freeform }}
     </pre
         >
     </div>

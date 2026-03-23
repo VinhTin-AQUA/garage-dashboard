@@ -1,24 +1,20 @@
 <div class="modal-overlay">
-    <div class="modal">
-        <h2 class="modal-title">Details</h2>
+    <div class="modal max-w-4xl">
+        <h2 class="modal-title mb-4">Details</h2>
 
-        <!-- Bucket ID -->
-        <app-text-input
-            [value]="bucketData().id"
-            placeholder="Bucket ID"
-            label="Bucket ID"
-            [disabled]="true"
-        ></app-text-input>
+        <!-- Basic info -->
+        <div class="grid grid-cols-2 gap-4 mb-4">
+            <app-text-input
+                [value]="bucketData().id"
+                label="Bucket ID"
+                [disabled]="true"
+            ></app-text-input>
 
-        <!-- Created -->
-        <app-date
-            label="Created"
-            [value]="bucketData().created"
-            [disabled]="true"
-        ></app-date>
+            <app-date label="Created" [value]="bucketData().created" [disabled]="true"></app-date>
+        </div>
 
-        <!-- Website access -->
-        <div class="flex gap-2 mb-3">
+        <!-- Flags -->
+        <div class="flex gap-6 mb-4">
             <app-checkbox
                 [checked]="bucketData().websiteAccess"
                 label="Website Access"
@@ -32,34 +28,102 @@
             ></app-checkbox>
         </div>
 
-        <!-- Objects / Size -->
-        <app-text-input
-            [value]="bucketData().objects"
-            label="Objects"
-            [disabled]="true"
-        ></app-text-input>
+        <!-- Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+            <app-text-input
+                [value]="bucketData().objects"
+                label="Objects"
+                [disabled]="true"
+            ></app-text-input>
 
-        <app-text-input
-            [value]="bucketData().bytes"
-            label="Bytes"
-            [disabled]="true"
-        ></app-text-input>
+            <app-text-input
+                [value]="bucketData().bytes"
+                label="Bytes"
+                [disabled]="true"
+            ></app-text-input>
+
+            <app-text-input
+                [value]="bucketData().unfinishedUploads"
+                label="Uploads"
+                [disabled]="true"
+            ></app-text-input>
+
+            <app-text-input
+                [value]="bucketData().unfinishedMultipartUploads"
+                label="Multipart"
+                [disabled]="true"
+            ></app-text-input>
+        </div>
+
+        <!-- Multipart detail -->
+        <div class="grid grid-cols-2 gap-4 mb-4">
+            <app-text-input
+                [value]="bucketData().unfinishedMultipartUploadParts"
+                label="Parts"
+                [disabled]="true"
+            ></app-text-input>
+
+            <app-text-input
+                [value]="bucketData().unfinishedMultipartUploadBytes"
+                label="Multipart Bytes"
+                [disabled]="true"
+            ></app-text-input>
+        </div>
 
         <!-- Quotas -->
-        <app-text-input
-            [value]="bucketData().quotas.maxSize"
-            label="Max Size"
-            [disabled]="true"
-        ></app-text-input>
+        <div class="grid grid-cols-2 gap-4 mb-4">
+            <app-text-input
+                [value]="bucketData().quotas.maxSize"
+                label="Max Size"
+                [disabled]="true"
+            ></app-text-input>
 
-        <app-text-input
-            [value]="bucketData().quotas.maxObjects"
-            label="Max Objects"
-            [disabled]="true"
-        ></app-text-input>
+            <app-text-input
+                [value]="bucketData().quotas.maxObjects"
+                label="Max Objects"
+                [disabled]="true"
+            ></app-text-input>
+        </div>
 
-        <div class="modal-actions">
-            <app-button (click)="close()"> Cancel </app-button>
+        <!-- Aliases + Keys -->
+        <div class="grid grid-cols-2 gap-6 mb-4">
+            @if (bucketData().globalAliases.length) {
+                <div>
+                    <label class="font-semibold">Aliases</label>
+                    <ul class="list-disc pl-5 text-sm">
+                        @for (alias of bucketData().globalAliases; track $index) {
+                            <li>{{ alias }}</li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            @if (bucketData().keys.length) {
+                <div>
+                    <label class="font-semibold">Keys</label>
+                    <ul class="list-disc pl-5 text-sm">
+                        @for (key of bucketData().keys; track $index) {
+                            <li>{{ key }}</li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+
+        <!-- Website config -->
+        @if (bucketData().websiteConfig) {
+            <div class="mb-4">
+                <label class="font-semibold">Website Config</label>
+                <pre class="bg-gray-100 p-3 rounded text-xs overflow-auto"
+                    >{{ bucketData().websiteConfig | json }}
+            </pre
+                >
+            </div>
+        }
+
+        <!-- Actions -->
+        <div class="modal-actions flex justify-end">
+            <app-button (click)="close()">Cancel</app-button>
         </div>
     </div>
 </div>

@@ -1,0 +1,47 @@
+/* Background & text */
+.app-bg {
+    background-color: var(--background);
+    color: var(--foreground);
+}
+
+/* Card */
+.card {
+    border: 1px solid var(--brightBlack);
+    border-radius: 1rem; /* tương đương rounded-2xl */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+}
+
+/* Title */
+.title-blue {
+    color: var(--blue);
+}
+
+.title-green {
+    color: var(--green);
+}
+
+/* Label */
+.label {
+    color: var(--brightBlack);
+    font-size: 0.875rem;
+}
+
+/* Feature badge */
+.badge {
+    background-color: var(--selectionBackground);
+    color: var(--blue);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+}
+
+/* Statistics block */
+.stats-box {
+    background-color: var(--selectionInactiveBackground);
+    padding: 1rem;
+    border-radius: 0.75rem;
+    font-family: monospace;
+    font-size: 0.875rem;
+    white-space: pre-wrap;
+}

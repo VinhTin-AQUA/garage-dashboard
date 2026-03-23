@@ -1,13 +1,15 @@
 import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
 import { BucketDetailsModel } from '../../models/buckket.model';
-import { TextInput } from "../../../../../shared/components/text-input/text-input";
-import { DateInput } from "../../../../../shared/components/date-input/date-input";
-import { Checkbox } from "../../../../../shared/components/checkbox/checkbox";
-import { Button } from "../../../../../shared/components/button/button";
+import { TextInput } from '../../../../../shared/components/text-input/text-input';
+import { DateInput } from '../../../../../shared/components/date-input/date-input';
+import { Checkbox } from '../../../../../shared/components/checkbox/checkbox';
+import { Button } from '../../../../../shared/components/button/button';
+import { BucketService } from '../../../../../core/services/bucket.service';
+import { JsonPipe } from '@angular/common';
 
 @Component({
     selector: 'app-bucket-details',
-    imports: [TextInput, DateInput, Checkbox, Button],
+    imports: [TextInput, DateInput, Checkbox, Button, JsonPipe],
     templateUrl: './bucket-details.html',
     styleUrl: './bucket-details.css',
 })
@@ -35,7 +37,19 @@ export class BucketDetails {
 
     @Output() closeModal = new EventEmitter<void>();
 
-    constructor() {}
+    constructor(private bucketService: BucketService) {}
+
+    ngOnInit() {
+        if (!this.id) {
+            return;
+        }
+        this.bucketService.getBucketInfo(this.id).subscribe({
+            next: (res) => {
+                this.bucketData.set(res);
+            },
+            error: (err) => {},
+        });
+    }
 
     close() {
         this.closeModal.emit();

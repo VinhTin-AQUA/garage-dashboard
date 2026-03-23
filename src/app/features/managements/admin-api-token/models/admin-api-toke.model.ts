@@ -6,3 +6,10 @@ export interface AdminAPITokenModel {
     expired: boolean;
     scope: string[];
 }
+
+export interface CreateAdminApiTokenModel {
+    expiration: string | null;
+    name: string;
+    neverExpires: boolean;
+    scope: string[];
+}

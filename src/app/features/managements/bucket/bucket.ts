@@ -39,6 +39,7 @@ export class Bucket {
     // create
     openCreateModal(value: boolean) {
         this.showCreate.set(value);
+        this.loadBuckets();
     }
 
     // details
@@ -52,7 +53,16 @@ export class Bucket {
     }
 
     delete() {
-        console.log('Delete ID:', this.deleteId);
-        this.deleteId = null;
+        if (!this.deleteId) {
+            return;
+        }
+
+        this.bucketService.deleteBucket(this.deleteId).subscribe({
+            next: (res) => {
+                this.loadBuckets();
+                this.deleteId = null;
+            },
+            error: (err) => {},
+        });
     }
 }

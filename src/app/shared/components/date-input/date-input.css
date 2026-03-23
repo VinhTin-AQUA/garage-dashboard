@@ -42,7 +42,7 @@
 
     .input:disabled {
         background: var(--black);
-        color: var(--brightBlack);
+        color: var(--highlight);
         cursor: not-allowed;
         opacity: 0.6;
     }

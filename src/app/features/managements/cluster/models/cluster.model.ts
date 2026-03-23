@@ -1,5 +1,39 @@
-// Health summary
-export interface ClusterHealthModel {
+export interface ClusterStatus {
+    layoutVersion: number;
+    nodes: NodeInfo[];
+}
+
+export interface NodeInfo {
+    id: string;
+    garageVersion: string;
+    addr: string;
+    hostname: string;
+    isUp: boolean;
+    lastSeenSecsAgo: number | null;
+    role: Role;
+    draining: boolean;
+    dataPartition: Partition;
+    metadataPartition: Partition;
+}
+
+export interface Role {
+    zone: string;
+    tags: string[];
+    capacity: number;
+}
+
+export interface Partition {
+    available: number;
+    total: number;
+}
+
+// -------- Statistics --------
+export interface ClusterStatistics {
+    freeform: string;
+}
+
+// -------- Health --------
+export interface ClusterHealth {
     status: string;
     knownNodes: number;
     connectedNodes: number;
@@ -8,42 +42,4 @@ export interface ClusterHealthModel {
     partitions: number;
     partitionsQuorum: number;
     partitionsAllOk: number;
-}
-
-// Freeform text
-export interface ClusterStorageTextModel {
-    freeform: string;
-}
-
-// Node role
-export interface NodeRole {
-    zone: string;
-    tags: string[];
-    capacity: number;
-}
-
-// Partition info
-export interface PartitionInfo {
-    available: number;
-    total: number;
-}
-
-// Node
-export interface ClusterNode {
-    id: string;
-    garageVersion: string;
-    addr: string;
-    hostname: string;
-    isUp: boolean;
-    lastSeenSecsAgo: number | null;
-    role: NodeRole;
-    draining: boolean;
-    dataPartition: PartitionInfo;
-    metadataPartition: PartitionInfo;
-}
-
-// Layout
-export interface ClusterLayoutModel {
-    layoutVersion: number;
-    nodes: ClusterNode[];
 }

@@ -1,10 +1,7 @@
-import { Component } from '@angular/core';
-import {
-    ClusterHealthModel,
-    ClusterLayoutModel,
-    ClusterStorageTextModel,
-} from './models/cluster.model';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ClusterHealth, ClusterStatistics, ClusterStatus } from './models/cluster.model';
+import { ClusterService } from '../../../core/services/cluster.service';
 
 @Component({
     selector: 'app-cluster',
@@ -13,54 +10,73 @@ import { CommonModule } from '@angular/common';
     styleUrl: './cluster.css',
 })
 export class Cluster {
-    health: ClusterHealthModel = {
-        status: 'healthy',
-        knownNodes: 1,
-        connectedNodes: 1,
-        storageNodes: 1,
-        storageNodesUp: 1,
-        partitions: 256,
-        partitionsQuorum: 256,
-        partitionsAllOk: 256,
-    };
+    health = signal<ClusterHealth>({
+        status: '',
+        knownNodes: 0,
+        connectedNodes: 0,
+        storageNodes: 0,
+        storageNodesUp: 0,
+        partitions: 0,
+        partitionsQuorum: 0,
+        partitionsAllOk: 0,
+    });
 
-    storageText: ClusterStorageTextModel = {
-        freeform: `Storage nodes:
-ID                Hostname  Zone  Capacity   Part.  DataAvail                  MetaAvail
-52e752abec6feed5  newtun    dc1   1048.6 KB  256    197.1 GB/348.7 GB (56.5%)  197.1 GB/348.7 GB (56.5%)
+    clusterStatistics = signal<ClusterStatistics>({
+        freeform: ``,
+    });
 
-Estimated available storage space cluster-wide:
-data: 197.1 GB
-metadata: 197.1 GB`,
-    };
-
-    layout: ClusterLayoutModel = {
-        layoutVersion: 2,
+    clusterStatus = signal<ClusterStatus>({
+        layoutVersion: -1,
         nodes: [
             {
-                id: '52e752abec6feed50e2690c2712ab2861a2645f38e19b91bcc160d6632a57164',
-                garageVersion: 'v2.2.0',
-                addr: '192.168.1.56:3901',
-                hostname: 'newtun',
-                isUp: true,
+                id: '',
+                garageVersion: '',
+                addr: '',
+                hostname: '',
+                isUp: false,
                 lastSeenSecsAgo: null,
                 role: {
-                    zone: 'dc1',
+                    zone: '',
                     tags: [],
-                    capacity: 1048576,
+                    capacity: -1,
                 },
                 draining: false,
                 dataPartition: {
-                    available: 197101887488,
-                    total: 348696031232,
+                    available: -1,
+                    total: -1,
                 },
                 metadataPartition: {
-                    available: 197101887488,
-                    total: 348696031232,
+                    available: -1,
+                    total: -1,
                 },
             },
         ],
-    };
+    });
+
+    constructor(private clusterService: ClusterService) {}
+
+    ngOnInit() {
+        this.clusterService.getClusterHealth().subscribe({
+            next: (res) => {
+                this.health.set(res);
+            },
+            error: (err) => {},
+        });
+
+        this.clusterService.getClusterStatistics().subscribe({
+            next: (res) => {
+                this.clusterStatistics.set(res);
+            },
+            error: (err) => {},
+        });
+
+        this.clusterService.getClusterStatus().subscribe({
+            next: (res) => {
+                this.clusterStatus.set(res);
+            },
+            error: (err) => {},
+        });
+    }
 
     formatBytes(bytes: number): string {
         return (bytes / 1024 ** 3).toFixed(1) + ' GB';

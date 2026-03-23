@@ -17,7 +17,6 @@ export class BucketService {
 
     constructor(private http: HttpClient) {}
 
-    // Header chuẩn với Authorization
     private getHeaders(): HttpHeaders {
         return new HttpHeaders({
             Authorization: `Bearer ${this.token}`,

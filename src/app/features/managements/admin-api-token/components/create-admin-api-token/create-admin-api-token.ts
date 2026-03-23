@@ -4,6 +4,7 @@ import { TextInput } from '../../../../../shared/components/text-input/text-inpu
 import { Checkbox } from '../../../../../shared/components/checkbox/checkbox';
 import { DateInput } from '../../../../../shared/components/date-input/date-input';
 import { Button } from '../../../../../shared/components/button/button';
+import { CreateAdminApiTokenModel } from '../../models/admin-api-toke.model';
 
 @Component({
     selector: 'app-create-admin-api-token',
@@ -12,12 +13,7 @@ import { Button } from '../../../../../shared/components/button/button';
     styleUrl: './create-admin-api-token.css',
 })
 export class CreateAdminApiToken {
-    addKeyData = signal<{
-        expiration: string | null;
-        name: string;
-        neverExpires: boolean;
-        scope: string[];
-    }>({
+    addKeyData = signal<CreateAdminApiTokenModel>({
         expiration: null,
         name: '',
         neverExpires: false,
