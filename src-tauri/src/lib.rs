@@ -1,34 +1,42 @@
 use std::net::TcpStream;
+use std::sync::Arc;
 use std::time::Duration;
-use std::{sync::Arc};
 
 mod api;
 mod bootstrap;
 mod models;
 mod services;
+mod helpers;
 
-use crate::{services::AppRunner};
+use crate::services::AppRunner;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    std::panic::set_hook(Box::new(|info| {
+        let _ = std::fs::write("panic.log", format!("{:?}", info));
+    }));
+
     let runner = Arc::new(AppRunner::new());
 
-    tauri::Builder::default()
-        .plugin(tauri_plugin_fs::init())
+    let result = tauri::Builder::default()
+        // 2. Luôn bật log (cả debug + release)
+        .plugin(
+            tauri_plugin_log::Builder::default()
+                .level(log::LevelFilter::Info)
+                .targets([tauri_plugin_log::Target::new(
+                    tauri_plugin_log::TargetKind::LogDir {
+                        file_name: Some("app".into()),
+                    },
+                )])
+                .build(),
+        )
         .setup({
             let runner = runner.clone();
             move |app| {
-                // setup log plugin nếu debug
-                if cfg!(debug_assertions) {
-                    app.handle().plugin(
-                        tauri_plugin_log::Builder::default()
-                            .level(log::LevelFilter::Info)
-                            .build(),
-                    )?;
+                // 3. Log lỗi khi start
+                if let Err(e) = runner.start(&app.handle()) {
+                    log::error!("Runner start failed: {}", e);
                 }
-
-                // start garage binary
-                runner.start(&app.handle())?;
 
                 if !wait_port_ready("127.0.0.1:3903", 5000) {
                     eprintln!("Admin API port 3903 never became ready");
@@ -39,20 +47,15 @@ pub fn run() {
                 tauri::async_runtime::spawn(async {
                     bootstrap::init().await;
                 });
-
                 Ok(())
             }
         })
-        .on_window_event({
-            let runner = runner.clone();
-            move |_, event| {
-                if let tauri::WindowEvent::CloseRequested { .. } = event {
-                    runner.stop();
-                }
-            }
-        })
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+        .run(tauri::generate_context!());
+
+    // 4. Log lỗi nếu app crash
+    if let Err(e) = result {
+        log::error!("App crashed: {}", e);
+    }
 }
 
 fn wait_port_ready(addr: &str, timeout_ms: u64) -> bool {

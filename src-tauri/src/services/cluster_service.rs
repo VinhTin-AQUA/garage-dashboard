@@ -17,6 +17,7 @@ impl ClusterService {
 
     pub async fn run(&self) -> anyhow::Result<()> {
         // 1. check health
+        println!("Get Cluster Health");
         let health: ClusterHealth = self.api.get("/v2/GetClusterHealth").await?;
 
         if health.status != "unavailable" {
@@ -25,6 +26,7 @@ impl ClusterService {
         }
 
         // 2. get nodes
+        println!("Get Cluster Status");
         let status: ClusterStatus = self.api.get("/v2/GetClusterStatus").await?;
 
         let node_id = status
@@ -35,6 +37,7 @@ impl ClusterService {
             .clone();
 
         // 3. update layout
+        println!("Update Layout");
         let body = UpdateLayoutRequest {
             parameters: Parameters {
                 zoneRedundancy: "maximum".into(),
@@ -58,6 +61,7 @@ impl ClusterService {
             .await?;
 
         let version = preview.newLayout.version;
+        println!("version = {:?}", version);
 
         // 5. apply
         let apply_body = ApplyRequest { version };
