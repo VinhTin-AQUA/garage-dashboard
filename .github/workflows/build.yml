@@ -70,7 +70,7 @@ jobs:
 
             - name: Create tar.gz
               run: |
-                tar -czf ${{ env.TARGET_DIR_TAR }}.tar.gz -C ./${{ env.TARGET_DIR_TAR }} .
+                tar -czf ${{ env.TARGET_DIR_TAR }}.tar.gz ${{ env.TARGET_DIR_TAR }}
 
             - name: Upload artifacts
               uses: actions/upload-artifact@v4
