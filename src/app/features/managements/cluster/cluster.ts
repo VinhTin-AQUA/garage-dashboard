@@ -2,14 +2,18 @@ import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClusterHealth, ClusterStatistics, ClusterStatus } from './models/cluster.model';
 import { ClusterService } from '../../../core/services/cluster.service';
+import { environment } from '../../../../environments/environment.development';
+import { Icons } from '../../../shared/components/icons/icons';
 
 @Component({
     selector: 'app-cluster',
-    imports: [CommonModule],
+    imports: [CommonModule, Icons],
     templateUrl: './cluster.html',
     styleUrl: './cluster.css',
 })
 export class Cluster {
+    baseAdminApi = environment.baseAdminApi;
+    baseS3Api = environment.baseS3Api;
     health = signal<ClusterHealth>({
         status: '',
         knownNodes: 0,
@@ -80,5 +84,19 @@ export class Cluster {
 
     formatBytes(bytes: number): string {
         return (bytes / 1024 ** 3).toFixed(1) + ' GB';
+    }
+
+    copybaseAdminApi() {
+        navigator.clipboard
+            .writeText(this.baseAdminApi)
+            .then(() => {})
+            .catch((err) => {});
+    }
+
+    copyBaseS3Api() {
+        navigator.clipboard
+            .writeText(this.baseS3Api)
+            .then(() => {})
+            .catch((err) => {});
     }
 }

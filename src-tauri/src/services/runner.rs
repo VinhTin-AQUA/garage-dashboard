@@ -47,9 +47,15 @@ impl AppRunner {
     pub fn start(&self, app: &AppHandle) -> anyhow::Result<()> {
         let resource_dir = Self::resolve_resource_dir(app)?;
 
-        // ❗ KHÔNG join thêm "resources" nữa
-        let garage_bin = resource_dir.join("garage/garage");
-        let config_path = resource_dir.join("garage/garage.toml");
+        let mut base = resource_dir.clone();
+
+        // dev mode thì resources nằm trong thư mục con
+        if cfg!(debug_assertions) {
+            base = base.join("resources");
+        }
+
+        let garage_bin = base.join("garage/garage");
+        let config_path = base.join("garage/garage.toml");
 
         log_to_file!("=== AppRunner Debug ===");
         log_to_file!("Resource dir: {:?}", resource_dir);

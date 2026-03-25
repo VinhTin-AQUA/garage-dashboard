@@ -4,6 +4,7 @@ import {
     ArchiveIconComponent,
     BlockIconComponent,
     ClusterIconComponent,
+    CopyIconComponent,
     DarkIconComponent,
     HomeIconComponent,
     KeyIconComponent,
@@ -34,6 +35,7 @@ export const ICON_REGISTRY: Record<string, Type<any>> = {
     worker: WorkerIconComponent,
     light: LightIconComponent,
     dark: DarkIconComponent,
+    copy: CopyIconComponent,
 };
 
 export type IconNames =
@@ -52,6 +54,7 @@ export type IconNames =
     | 'worker'
     | 'light'
     | 'dark'
+    | 'copy'
     | 'error';
 
 @Component({

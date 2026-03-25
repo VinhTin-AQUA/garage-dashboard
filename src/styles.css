@@ -1,3 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "tailwindcss";
+@import 'tailwindcss';
+
+::selection {
+    background-color: #ffcc00; /* màu nền khi bôi */
+    color: #000; /* màu chữ */
+}

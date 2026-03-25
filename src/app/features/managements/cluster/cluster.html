@@ -29,6 +29,38 @@
         </div>
     </div>
 
+    <!-- API ENDPOINTS -->
+    <div class="card mb-6">
+        <div class="section-title">API Endpoints</div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <div class="card-title mb-1">Admin API</div>
+                <div class="endpoint flex items-center justify-between">
+                    {{ baseAdminApi }}
+
+                    <button
+                        (click)="copybaseAdminApi()"
+                        class="w-5 h-5 cursor-pointer duration-150"
+                    >
+                        <app-icons class="w-5 h-5" iconName="copy"></app-icons>
+                    </button>
+                </div>
+            </div>
+
+            <div>
+                <div class="card-title mb-1">S3 API</div>
+                <div class="endpoint flex items-center justify-between">
+                    {{ baseS3Api }}
+
+                    <button (click)="copyBaseS3Api()" class="w-5 h-5 cursor-pointer duration-150">
+                        <app-icons class="w-5 h-5" iconName="copy"></app-icons>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- TABLE -->
     <div class="card mb-6">
         <div class="section-title">Nodes</div>

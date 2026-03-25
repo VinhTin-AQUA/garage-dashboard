@@ -63,6 +63,28 @@
     color: var(--red);
 }
 
+/* Endpoint box */
+.endpoint {
+    background: var(--black);
+    color: var(--brightGreen);
+
+    padding: 10px 12px;
+    border-radius: 10px;
+
+    font-size: 12px;
+    font-family: monospace;
+
+    word-break: break-all;
+
+    border: 1px solid var(--selectionInactiveBackground);
+}
+
+button {
+    &:hover {
+        color: var(--brightBlack);
+    }
+}
+
 /* Table */
 .table {
     width: 100%;
