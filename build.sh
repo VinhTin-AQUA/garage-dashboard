@@ -2,7 +2,7 @@
 npm run tauri build --no-bundle
 
 TARGET_DIR="app_portable"
-TARGET_DIR_TAR="garage_dashboard_portable.tar.gz"
+TARGET_DIR_TAR="garage_dashboard_portable"
 
 rm -rf "$TARGET_DIR" "$TARGET_DIR_TAR"
 
@@ -13,6 +13,4 @@ cp -r src-tauri/target/release/resources "$TARGET_DIR/"
 cp -r src-tauri/target/release/.cargo-lock "$TARGET_DIR/"
 cp -r src-tauri/target/release/app.d "$TARGET_DIR/"
 
-tar -czvf "$TARGET_DIR_TAR" "$TARGET_DIR"
-
-echo "Done! File: $TARGET_DIR_TAR"
+echo "Done! Folder: $TARGET_DIR_TAR"
