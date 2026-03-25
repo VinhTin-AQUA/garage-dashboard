@@ -105,6 +105,12 @@ jobs:
                     echo "No old tag found."
                   fi
 
+            - name: Delete existing release
+              run: |
+                gh release delete ${{ env.TAG_NAME }} --yes || echo "No release to delete"
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
             - name: Create Tag
               run: |
                   git config user.name "github-actions"
