@@ -9,5 +9,6 @@ cp -r src-tauri/target/release/resources "$TARGET_DIR/"
 cp -r src-tauri/target/release/.cargo-lock "$TARGET_DIR/"
 cp -r src-tauri/target/release/app.d "$TARGET_DIR/"
 cp -r src-tauri/icons/Square150x150Logo.png "$TARGET_DIR/"
+cp -r run.sh "$TARGET_DIR/"
 
 echo "Done! Folder: $TARGET_DIR"
