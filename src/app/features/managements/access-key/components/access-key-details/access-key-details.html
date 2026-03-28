@@ -1,27 +1,17 @@
 <div class="modal-overlay">
-    <div class="modal">
+    <div class="w-200 modal">
         <h2 class="modal-title">Details</h2>
 
-        <app-text-input
-            [value]="keyDetails().accessKeyId"
-            placeholder="Id"
-            label="AccessKey Id"
-            [disabled]="true"
-        ></app-text-input>
+        <!-- <div class="endpoint flex items-center justify-between">
+                    {{ baseAdminApi }}
 
-        <app-text-input
-            [value]="keyDetails().secretAccessKey"
-            placeholder="SecretAccessKey"
-            label="SecretAccessKey"
-            [disabled]="true"
-        ></app-text-input>
-
-        <app-text-input
-            [value]="keyDetails().created"
-            placeholder="Created"
-            label="Created"
-            [disabled]="true"
-        ></app-text-input>
+                    <button
+                        (click)="copybaseAdminApi()"
+                        class="w-5 h-5 cursor-pointer duration-150"
+                    >
+                        <app-icons class="w-5 h-5" iconName="copy"></app-icons>
+                    </button>
+                </div> -->
 
         <app-text-input
             [value]="keyDetails().name"
@@ -29,6 +19,54 @@
             label="Name"
             [disabled]="true"
         ></app-text-input>
+
+        <div class="flex items-center justify-between gap-2">
+            <div class="flex items-center justify-between w-full">
+                <app-text-input
+                    [value]="keyDetails().accessKeyId"
+                    placeholder="Id"
+                    label="AccessKey Id"
+                    [disabled]="true"
+                    class="w-full"
+                ></app-text-input>
+
+                <button (click)="copyAccessKeyId()" class="w-5 h-5 cursor-pointer duration-150">
+                    <app-icons class="w-7 h-7" iconName="copy"></app-icons>
+                </button>
+            </div>
+
+            <div class="flex items-center justify-between w-full">
+                <app-text-input
+                    [value]="keyDetails().secretAccessKey"
+                    placeholder="SecretAccessKey"
+                    label="SecretAccessKey"
+                    [disabled]="true"
+                    class="w-full"
+                ></app-text-input>
+
+                <button (click)="copySecretAccessKey()" class="w-5 h-5 cursor-pointer duration-150">
+                    <app-icons class="w-7 h-7" iconName="copy"></app-icons>
+                </button>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-between w-full gap-2">
+            <app-text-input
+                [value]="keyDetails().expiration ?? 'null'"
+                placeholder="Expiration"
+                label="Expiration"
+                [disabled]="true"
+                class="w-full"
+            ></app-text-input>
+
+            <app-text-input
+                [value]="keyDetails().created"
+                placeholder="Created"
+                label="Created"
+                [disabled]="true"
+                class="w-full"
+            ></app-text-input>
+        </div>
 
         <div class="flex gap-2 mb-3">
             <app-checkbox
@@ -43,13 +81,6 @@
                 [disabled]="true"
             ></app-checkbox>
         </div>
-
-        <app-text-input
-            [value]="keyDetails().expiration ?? 'null'"
-            placeholder="Expiration"
-            label="Expiration"
-            [disabled]="true"
-        ></app-text-input>
 
         <div class="modal-actions">
             <app-button (click)="close()"> Cancel </app-button>

@@ -1,5 +1,5 @@
 <div class="modal-overlay">
-    <div class="modal max-w-4xl">
+    <div class="modal max-w-4xl w-200">
         <h2 class="modal-title mb-4">Details</h2>
 
         <!-- Basic info -->
@@ -37,7 +37,7 @@
             ></app-text-input>
 
             <app-text-input
-                [value]="bucketData().bytes"
+                [value]="bucketData().bytes | bytes"
                 label="Bytes"
                 [disabled]="true"
             ></app-text-input>

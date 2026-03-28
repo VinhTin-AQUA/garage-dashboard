@@ -6,10 +6,11 @@ import { Button } from '../../../../../shared/components/button/button';
 import { DateInput } from '../../../../../shared/components/date-input/date-input';
 import { AccessKeyService } from '../../../../../core/services/access-key.service';
 import { AccessKeyDetailsModel } from '../../models/access-key.model';
+import { Icons } from '../../../../../shared/components/icons/icons';
 
 @Component({
     selector: 'app-access-key-details',
-    imports: [TextInput, Checkbox, Button, DateInput],
+    imports: [TextInput, Checkbox, Button, DateInput, Icons],
     templateUrl: './access-key-details.html',
     styleUrl: './access-key-details.css',
 })
@@ -17,9 +18,9 @@ export class AccessKeyDetails {
     @Input() id: string | null = null;
 
     keyDetails = signal<AccessKeyDetailsModel>({
-        accessKeyId: 'GK15f12812d6b34ddbb589b7d1',
+        accessKeyId: 'null',
         created: '2026-03-22T15:34:01.395Z',
-        name: 'name',
+        name: 'null',
         expiration: null,
         expired: false,
         secretAccessKey: '',
@@ -46,5 +47,19 @@ export class AccessKeyDetails {
 
     close() {
         this.closeModal.emit();
+    }
+
+    copyAccessKeyId() {
+        navigator.clipboard
+            .writeText(this.keyDetails().accessKeyId)
+            .then(() => {})
+            .catch((err) => {});
+    }
+
+    copySecretAccessKey() {
+        navigator.clipboard
+            .writeText(this.keyDetails().secretAccessKey)
+            .then(() => {})
+            .catch((err) => {});
     }
 }
