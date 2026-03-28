@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { Button } from '../../../shared/components/button/button';
 import { CreateAccessKey } from './components/create-access-key/create-access-key';
-import { AccessKeyModel } from './models/access-key.model';
+import { AccessKeyModel } from '../../../core/models/access-key.model';
 import { AccessKeyDetails } from './components/access-key-details/access-key-details';
 import { QuestionCancelDialog } from '../../../shared/components/question-cancel-dialog/question-cancel-dialog';
 import { AccessKeyService } from '../../../core/services/access-key.service';

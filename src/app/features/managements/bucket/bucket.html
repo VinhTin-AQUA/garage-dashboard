@@ -36,6 +36,10 @@
                     <!-- ACTIONS -->
                     <div class="actions">
                         @if (item.created) {
+                            <app-button (click)="showAllowPermission(item)" status="success">
+                                Permissions
+                            </app-button>
+
                             <app-button (click)="showViewDetail(item)" status="warning">
                                 Detail
                             </app-button>
@@ -65,5 +69,12 @@
             [message]="'delete'"
             [title]="'delete'"
         ></app-question-cancel-dialog>
+    }
+
+    @if (allowPermissionId) {
+        <app-allow-permission
+            [id]="allowPermissionId"
+            (closeModal)="showAllowPermission()"
+        ></app-allow-permission>
     }
 </div>

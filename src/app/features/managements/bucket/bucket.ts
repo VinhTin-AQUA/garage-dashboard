@@ -1,14 +1,15 @@
 import { Component, signal } from '@angular/core';
-import { BucketModel } from './models/buckket.model';
+import { BucketModel } from '../../../core/models/buckket.model';
 import { Button } from '../../../shared/components/button/button';
 import { CreateBucket } from './components/create-bucket/create-bucket';
 import { BucketDetails } from './components/bucket-details/bucket-details';
 import { QuestionCancelDialog } from '../../../shared/components/question-cancel-dialog/question-cancel-dialog';
 import { BucketService } from '../../../core/services/bucket.service';
+import { AllowPermission } from "./components/allow-permission/allow-permission";
 
 @Component({
     selector: 'app-bucket',
-    imports: [Button, CreateBucket, BucketDetails, QuestionCancelDialog],
+    imports: [Button, CreateBucket, BucketDetails, QuestionCancelDialog, AllowPermission],
     templateUrl: './bucket.html',
     styleUrl: './bucket.css',
 })
@@ -18,6 +19,7 @@ export class Bucket {
     showCreate = signal<boolean>(false);
     deleteId: string | null = null;
     detailsId: string | null = null;
+    allowPermissionId: string | null = null;
 
     constructor(private bucketService: BucketService) {}
 
@@ -64,5 +66,12 @@ export class Bucket {
             },
             error: (err) => {},
         });
+    }
+
+    // allow permission
+
+    showAllowPermission(item: BucketModel | null = null) {
+        this.allowPermissionId = item?.id ?? null;
+        this.loadBuckets();
     }
 }

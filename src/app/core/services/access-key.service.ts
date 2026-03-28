@@ -5,7 +5,7 @@ import {
     AccessKeyDetailsModel,
     AccessKeyModel,
     CreateAccessKeyModel,
-} from '../../features/managements/access-key/models/access-key.model';
+} from '../models/access-key.model';
 import { Observable } from 'rxjs';
 
 @Injectable({

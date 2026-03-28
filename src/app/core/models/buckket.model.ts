@@ -12,11 +12,11 @@ export interface Quotas {
 
 export interface BucketDetailsModel {
     id: string;
-    created: string; 
+    created: string;
     globalAliases: string[];
     websiteAccess: boolean;
     websiteConfig: any | null;
-    keys: any[]; 
+    keys: Key[];
     objects: number;
     bytes: number;
     unfinishedUploads: number;
@@ -27,6 +27,27 @@ export interface BucketDetailsModel {
 }
 
 export interface CreateBucketBody {
-  globalAlias: string;
-  localAlias: string | null; 
+    globalAlias: string;
+    localAlias: string | null;
+}
+
+export interface Key {
+    accessKeyId: string;
+    name: string;
+    permissions: {
+        read: boolean;
+        write: boolean;
+        owner: boolean;
+    };
+    bucketLocalAliases: [];
+}
+
+export interface AllowBucketPermissionModel {
+    bucketId: string;
+    accessKeyId: string;
+    permissions: {
+        read: boolean;
+        write: boolean;
+        owner: boolean;
+    };
 }

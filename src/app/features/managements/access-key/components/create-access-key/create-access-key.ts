@@ -4,7 +4,7 @@ import { Checkbox } from '../../../../../shared/components/checkbox/checkbox';
 import { DateInput } from '../../../../../shared/components/date-input/date-input';
 import { form, FormField, required } from '@angular/forms/signals';
 import { Button } from '../../../../../shared/components/button/button';
-import { CreateAccessKeyModel } from '../../models/access-key.model';
+import { CreateAccessKeyModel } from '../../../../../core/models/access-key.model';
 import { AccessKeyService } from '../../../../../core/services/access-key.service';
 import { FormsModule } from '@angular/forms';
 

@@ -3,7 +3,7 @@ import { TextInput } from '../../../../../shared/components/text-input/text-inpu
 import { Button } from '../../../../../shared/components/button/button';
 import { form, required } from '@angular/forms/signals';
 import { BucketService } from '../../../../../core/services/bucket.service';
-import { CreateBucketBody } from '../../models/buckket.model';
+import { CreateBucketBody } from '../../../../../core/models/buckket.model';
 
 @Component({
     selector: 'app-create-bucket',

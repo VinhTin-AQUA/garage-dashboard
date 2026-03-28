@@ -100,26 +100,76 @@
 
             @if (bucketData().keys.length) {
                 <div>
-                    <label class="font-semibold">Keys</label>
-                    <ul class="list-disc pl-5 text-sm">
-                        @for (key of bucketData().keys; track $index) {
-                            <li>{{ key }}</li>
+                    <label class="font-semibold mb-2 block">Keys</label>
+
+                    <div class="flex flex-col gap-3">
+                        @for (key of bucketData().keys; track key.accessKeyId) {
+                            <div class="key-card">
+                                <!-- Header -->
+                                <div class="flex justify-between items-center mb-2">
+                                    <div class="key-name">
+                                        {{ key.name || 'Unnamed Key' }}
+                                    </div>
+                                    <div class="key-id">
+                                        {{ key.accessKeyId }}
+                                    </div>
+                                </div>
+
+                                <!-- Permissions -->
+                                <div class="flex gap-2 mb-2 flex-wrap">
+                                    @if (key.permissions.read) {
+                                        <span class="permission-badge permission-read"> Read </span>
+                                    }
+
+                                    @if (key.permissions.write) {
+                                        <span
+                                            class="permission-badge permission-write"
+                                            [ngClass]="{
+                                                '': key.permissions.write,
+                                            }"
+                                        >
+                                            Write
+                                        </span>
+                                    }
+
+                                    @if (key.permissions.owner) {
+                                        <span
+                                            class="permission-badge permission-owner"
+                                            [ngClass]="{
+                                                '': key.permissions.owner,
+                                            }"
+                                        >
+                                            Owner
+                                        </span>
+                                    }
+                                </div>
+
+                                <!-- Aliases -->
+                                @if (key.bucketLocalAliases.length) {
+                                    <div class="text-xs">
+                                        <span class="font-medium">Aliases:</span>
+                                        <span class="key-alias">
+                                            {{ key.bucketLocalAliases.join(', ') }}
+                                        </span>
+                                    </div>
+                                }
+                            </div>
                         }
-                    </ul>
+                    </div>
+                </div>
+            }
+
+            <!-- Website config -->
+            @if (bucketData().websiteConfig) {
+                <div class="mb-4">
+                    <label class="font-semibold">Website Config</label>
+                    <pre class="bg-gray-100 p-3 rounded text-xs overflow-auto"
+                        >{{ bucketData().websiteConfig | json }}
+            </pre
+                    >
                 </div>
             }
         </div>
-
-        <!-- Website config -->
-        @if (bucketData().websiteConfig) {
-            <div class="mb-4">
-                <label class="font-semibold">Website Config</label>
-                <pre class="bg-gray-100 p-3 rounded text-xs overflow-auto"
-                    >{{ bucketData().websiteConfig | json }}
-            </pre
-                >
-            </div>
-        }
 
         <!-- Actions -->
         <div class="modal-actions flex justify-end">

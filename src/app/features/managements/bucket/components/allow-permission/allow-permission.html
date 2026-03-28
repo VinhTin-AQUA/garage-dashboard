@@ -1,0 +1,71 @@
+@if (initialized()) {
+    <div class="modal-overlay">
+        <div class="w-full max-w-md p-6 rounded-2xl shadow-lg modal-container">
+            <h2 class="text-xl font-semibold mb-4">Grant Access</h2>
+
+            <!-- Global Aliases -->
+            <div class="mb-4">
+                <label class="block text-sm mb-2">Global Aliases</label>
+                <div class="flex flex-wrap gap-2">
+                    @for (alias of bucketData().globalAliases; track $index) {
+                        <span class="px-2 py-1 text-sm rounded-md">
+                            {{ alias }}
+                        </span>
+                    }
+                </div>
+            </div>
+
+            <!-- Select -->
+
+            @if (keyOptions().length == 0) {
+                <span>No access key. Please create a access key !!</span>
+            } @else {
+                <div class="mb-4">
+                    <app-select-box
+                        label="Access keys"
+                        [options]="keyOptions()"
+                        optionLabel="label"
+                        optionValue="value"
+                        [value]="allowData().accessKeyId"
+                        (valueChange)="onAccessKeyChange($event)"
+                    ></app-select-box>
+                </div>
+            }
+
+            <!-- Permissions -->
+            <div class="mb-6">
+                <label class="block text-sm mb-2">Permissions</label>
+
+                <div class="flex gap-2">
+                    <!-- <div class="flex gap-2 mb-3"> -->
+                    <app-checkbox
+                        [checked]="allowData().permissions.owner"
+                        label="Owner"
+                        (valueChange)="onOwnerPerrmissionChange($event)"
+                    ></app-checkbox>
+
+                    <app-checkbox
+                        [checked]="allowData().permissions.read"
+                        label="Read"
+                        (valueChange)="onReadPerrmissionChange($event)"
+                    ></app-checkbox>
+
+                    <app-checkbox
+                        [checked]="allowData().permissions.write"
+                        label="Write"
+                        (valueChange)="onWritePerrmissionChange($event)"
+                    ></app-checkbox>
+                    <!-- </div> -->
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex justify-end gap-3">
+                <app-button (click)="onCloseModal()"> Close </app-button>
+                <app-button (click)="onAllow()"> Allow </app-button>
+            </div>
+        </div>
+    </div>
+} @else {
+    <!-- <span>No bucket found</span> -->
+}

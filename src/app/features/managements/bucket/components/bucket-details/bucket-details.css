@@ -28,3 +28,58 @@
     gap: 10px;
     margin-top: 16px;
 }
+
+/* Key card */
+.key-card {
+    border: 1px solid var(--brightBlack);
+    background: var(--background);
+    border-radius: 12px;
+    padding: 12px;
+    transition: box-shadow 0.2s ease;
+}
+
+.key-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Text */
+.key-name {
+    color: var(--foreground);
+    font-weight: 600;
+}
+
+.key-id {
+    color: var(--brightBlack);
+    font-size: 12px;
+}
+
+/* Permissions */
+.permission-badge {
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #fff;
+}
+
+/* Active states */
+.permission-read {
+    background: var(--green);
+}
+
+.permission-write {
+    background: var(--blue);
+}
+
+.permission-owner {
+    background: var(--magenta);
+}
+
+/* Disabled */
+.permission-disabled {
+    background: var(--brightBlack);
+}
+
+/* Alias */
+.key-alias {
+    color: var(--brightBlack);
+}

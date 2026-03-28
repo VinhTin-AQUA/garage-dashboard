@@ -5,7 +5,7 @@ import { Checkbox } from '../../../../../shared/components/checkbox/checkbox';
 import { Button } from '../../../../../shared/components/button/button';
 import { DateInput } from '../../../../../shared/components/date-input/date-input';
 import { AccessKeyService } from '../../../../../core/services/access-key.service';
-import { AccessKeyDetailsModel } from '../../models/access-key.model';
+import { AccessKeyDetailsModel } from '../../../../../core/models/access-key.model';
 import { Icons } from '../../../../../shared/components/icons/icons';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
-import { JsonPipe } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 
-import { BucketDetailsModel } from '../../models/buckket.model';
+import { BucketDetailsModel } from '../../../../../core/models/buckket.model';
 import { TextInput } from '../../../../../shared/components/text-input/text-input';
 import { DateInput } from '../../../../../shared/components/date-input/date-input';
 import { Checkbox } from '../../../../../shared/components/checkbox/checkbox';
@@ -11,7 +11,7 @@ import { BytesPipe } from '../../../../../shared/pipes/bytes-pipe';
 
 @Component({
     selector: 'app-bucket-details',
-    imports: [TextInput, DateInput, Checkbox, Button, JsonPipe, BytesPipe],
+    imports: [TextInput, DateInput, Checkbox, Button, JsonPipe, BytesPipe, CommonModule],
     templateUrl: './bucket-details.html',
     styleUrl: './bucket-details.css',
 })

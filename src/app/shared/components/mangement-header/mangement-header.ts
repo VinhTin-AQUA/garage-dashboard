@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { ThemeService } from '../../../core/services/theme.service';
 import { Icons } from '../icons/icons';
-import { Bucket } from "../../../features/managements/bucket/bucket";
 import { Button } from "../button/button";
 
 @Component({
     selector: 'app-mangement-header',
-    imports: [Icons, Bucket, Button],
+    imports: [Icons, Button],
     templateUrl: './mangement-header.html',
     styleUrl: './mangement-header.css',
 })
