@@ -1,7 +1,9 @@
 use std::net::TcpStream;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
 use std::time::Duration;
+use tauri::{WindowEvent};
 
 mod api;
 mod bootstrap;
@@ -41,7 +43,10 @@ pub fn run() {
         init_logger();
     }
 
-    let runner = Arc::new(AppRunner::new());
+    let runner: Arc<AppRunner> = Arc::new(AppRunner::new());
+    let runner_to_stop = runner.clone();
+    let is_closing = Arc::new(AtomicBool::new(false));
+    let is_closing_clone = is_closing.clone();
 
     let result = builder
         .setup({
@@ -61,6 +66,34 @@ pub fn run() {
                 });
 
                 Ok(())
+            }
+        })
+        .on_window_event(move |app_handle, event| {
+            if let WindowEvent::CloseRequested { api, .. } = event {
+                // Nếu đã xử lý rồi thì cho đóng luôn
+                if is_closing_clone.load(Ordering::SeqCst) {
+                    return;
+                }
+
+                // Prevent the default close operation
+                api.prevent_close();
+
+                is_closing_clone.store(true, Ordering::SeqCst);
+                
+                // --- Run your function here ---
+                println!("Running cleanup function before closing...");
+
+                // Example: Perform some synchronous cleanup
+                runner_to_stop.stop();
+
+                // If you need to run async code, use tauri::async_runtime::spawn
+                // tauri::async_runtime::spawn(async move {
+                //     // async cleanup
+                // });
+
+                // Manually close the window after your function completes
+                // Note: If all windows are closed, the app will exit by default unless prevented globally.
+                let _ = app_handle.close();
             }
         })
         .run(tauri::generate_context!());
